@@ -9,6 +9,20 @@
   --line-height: 1.5;
 }
 
+@font-face {
+  font-family: 'ico';
+  src: url('./../fonts/iconfont.eot');
+  src: url('./../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('./../fonts/iconfont.woff2') format('woff2'),
+      url('./../fonts/iconfont.woff') format('woff'),
+      url('./../fonts/iconfont.ttf') format('truetype'),
+      url('./../fonts/iconfont.svg#iconfont') format('svg');
+}
+
+li {
+  list-style: none;
+}
+
 *,
 *::before,
 *::after {
@@ -24,6 +38,9 @@ body {
   background: var(--color-background);
   color: var(--color-text);
   width: 100vw;
+  max-width: 640px;
+  min-width: 320px;
+  margin: 0 auto;
 }
 
 a {
