@@ -1,5 +1,5 @@
 <template>
-  <TabControl :titles="titles" class="tabcontrol" @tabClick="tabClick"></TabControl>
+  <TabControl :titles="titles" class="tabcontrol"></TabControl>
 </template>
 
 <script>
@@ -13,11 +13,6 @@ export default {
     },
     components: {
         TabControl
-    },
-    methods: {
-        tabClick(index){
-            this.$emit('tabClick',index);
-        }
     }
 }
 </script>

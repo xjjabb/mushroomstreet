@@ -1,6 +1,6 @@
 <template>
     <ul class="goods">
-       <li v-for="(item,index) in goods" :key="index" class="goodsItem">
+       <li v-for="(item,index) in goods" :key="index" class="goodsItem" @click="itemClick(item.iid)">
            <img :src="item.show.img" alt="">
            <div class="goods_info">
                 <p>{{item.title}}</p>
@@ -23,6 +23,11 @@ export default {
             default(){
                 return []
             }
+        }
+    },
+    methods: {
+        itemClick(iid){
+            this.$router.push('/detail/'+iid);
         }
     }
 }

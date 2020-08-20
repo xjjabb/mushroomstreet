@@ -4,7 +4,7 @@
     <HomeSwiper :banners="banners"></HomeSwiper>
     <HomeRecommend :recommends="recommends"></HomeRecommend>
     <HomeFeature></HomeFeature>
-    <HomeTabControl @tabClick="tabClick"></HomeTabControl>
+    <HomeTabControl ></HomeTabControl>
     <Goods :goods="showGoods"></Goods>
     <BackTop v-show="isShowBackTop"></BackTop>
   </div>
@@ -35,6 +35,7 @@ export default {
         },//商品
         currentGoodsIndex: 'pop',
         isShowBackTop: false,//显示隐藏返回顶部按钮
+        saveY: 0,//重回home的位置
       }
     },
     components: {
@@ -51,6 +52,12 @@ export default {
         return this.goods[this.currentGoodsIndex].list;
       }
     },
+    activated(){
+      console.log("活");
+    },
+    deactivated(){
+      console.log("死");
+    },
     created(){
       //请求轮播图和首页导航
       this.getHomeMultdata();
@@ -60,6 +67,16 @@ export default {
       this.getHomeGoods('sell');
       //检测滚动条是否到底部
       this.listenerScroll();
+      //用bus监听
+      this.$bus.$on('tabClick',(index)=>{
+        if(index==0){
+          this.currentGoodsIndex='pop';
+        }else if(index==1){
+          this.currentGoodsIndex='new';
+        }else {
+          this.currentGoodsIndex='sell';
+        }
+      })
     },
     methods: {
       getHomeMultdata(){
@@ -91,15 +108,6 @@ export default {
             this.getHomeGoods(this.currentGoodsIndex);
           }
         });
-      },
-      tabClick(index){
-        if(index==0){
-          this.currentGoodsIndex='pop';
-        }else if(index==1){
-          this.currentGoodsIndex='new';
-        }else {
-          this.currentGoodsIndex='sell';
-        }
       }
     }
 }

@@ -5,6 +5,7 @@ const Home=()=>import('../views/home/Home.vue');
 const Category=()=>import('../views/category/CateGory.vue');
 const Cart=()=>import('../views/cart/Cart.vue');
 const Profile=()=>import('../views/profile/Profile.vue');
+const Detail=()=>import('../views/detail/Detail.vue');
 
 //处理连续点击路由错误
 const originalPush = VueRouter.prototype.push
@@ -45,6 +46,13 @@ const routes=[
         component: Profile,
         meta: {
             name: '蘑菇街-我的'
+        }
+    },
+    {
+        path: '/detail/:iid',
+        component: Detail,
+        meta: {
+            name: '蘑菇街-详情页'
         }
     }
 ]

@@ -25,7 +25,7 @@ export default {
     methods: {
         btnClick(index){
             this.currentIndex=index;
-            this.$emit('tabClick',index);
+            this.$bus.$emit('tabClick',index);
         }
     }
 }
