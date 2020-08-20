@@ -99,7 +99,7 @@ export default {
           let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
           // console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
           // console.log("scrollHeight"+scrollHeight);
-          if(scrollTop + clientHeight>1250){
+          if(scrollTop + clientHeight>2500){
             this.isShowBackTop=true;
           }else {
             this.isShowBackTop=false;
