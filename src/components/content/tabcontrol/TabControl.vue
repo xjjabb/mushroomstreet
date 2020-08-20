@@ -25,6 +25,7 @@ export default {
     methods: {
         btnClick(index){
             this.currentIndex=index;
+            this.$emit('tabClick',index);
         }
     }
 }
@@ -33,6 +34,7 @@ export default {
 <style scoped>
 #tabcontrol {
     display: flex;
+    background-color: #fff;
 }
 #tabcontrol li {
     flex: 1;

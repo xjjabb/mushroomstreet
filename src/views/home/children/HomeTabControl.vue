@@ -1,5 +1,5 @@
 <template>
-  <TabControl :titles="titles" class="tabcontrol"></TabControl>
+  <TabControl :titles="titles" class="tabcontrol" @tabClick="tabClick"></TabControl>
 </template>
 
 <script>
@@ -13,6 +13,11 @@ export default {
     },
     components: {
         TabControl
+    },
+    methods: {
+        tabClick(index){
+            this.$emit('tabClick',index);
+        }
     }
 }
 </script>
@@ -21,5 +26,6 @@ export default {
 .tabcontrol {
     position: sticky;
     top: 44px;
+    z-index: 999;
 }
 </style>

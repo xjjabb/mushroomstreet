@@ -48,6 +48,7 @@ export default {
         min-width: 320px;
         border-top: 1px solid #ccc;
         background-color: #fff;
+        z-index: 999;
     }
     ul {
         display: flex;

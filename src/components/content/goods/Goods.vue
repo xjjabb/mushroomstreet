@@ -2,10 +2,13 @@
     <ul class="goods">
        <li v-for="(item,index) in goods" :key="index" class="goodsItem">
            <img :src="item.show.img" alt="">
-           <div class="goods-info">
+           <div class="goods_info">
                 <p>{{item.title}}</p>
-                <span class="price">{{item.price}}</span>
-                <span class="collect">{{item.cfav}}</span>
+                <span class="price">￥{{item.price}}</span>
+                <span class="collect"> 
+                    <img src="~assets/img/common/collect.svg" alt="">
+                    {{item.cfav}}
+                </span>
            </div>
        </li>
     </ul>
@@ -30,18 +33,39 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        padding: 2px;
+        width: 100%;
+        box-sizing: content-box;
+        font-size: 14px;
     }
     .goodsItem {
-        flex: 40%;
+        width: 46%;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #ff8198;
     }
     .goodsItem img {
         width: 100%;
         border-radius: 5px;
     }
+    .goods_info {
+        margin-top: 10px;
+    }
     .goodsItem p {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        color: #000;
+    }
+    .collect {
+        position: relative;
+        color: #000;
+        padding: 0 15px;
+    }
+    .collect img {
+        position: absolute;
+        top: 0;
+        left: 5px;
+        width: 15px;
+        vertical-align: middle;
     }
 </style>

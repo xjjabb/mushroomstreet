@@ -4,14 +4,16 @@
     <HomeSwiper :banners="banners"></HomeSwiper>
     <HomeRecommend :recommends="recommends"></HomeRecommend>
     <HomeFeature></HomeFeature>
-    <HomeTabControl></HomeTabControl>
-    <Goods :goods="goods.pop.list"></Goods>
+    <HomeTabControl @tabClick="tabClick"></HomeTabControl>
+    <Goods :goods="showGoods"></Goods>
+    <BackTop v-show="showBackTop"></BackTop>
   </div>
 </template>
 
 <script>
 //公共组件
 import Goods from 'components/content/goods/Goods.vue';
+import BackTop from 'components/content/backtop/BackTop.vue';
 //首页子组件
 import HomeNavBar from './children/HomeNavBar.vue';
 import HomeSwiper from './children/HomeSwiper.vue';
@@ -31,6 +33,7 @@ export default {
           'new': {page:0,list:[]},
           'sell': {page:0,list:[]}
         },//商品
+        currentGoodsIndex: 'pop'
       }
     },
     components: {
@@ -40,6 +43,15 @@ export default {
       HomeFeature,//流行推荐
       HomeTabControl,//商品导航栏
       Goods,//商品列表
+      BackTop,//返回顶部
+    },
+    computed: {
+      showGoods(){
+        return this.goods[this.currentGoodsIndex].list;
+      },
+      showBackTop(){
+        return true;
+      }
     },
     created(){
       //请求轮播图和首页导航
@@ -48,6 +60,8 @@ export default {
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('sell');
+      //检测滚动条是否到底部
+      this.listenerScroll();
     },
     methods: {
       getHomeMultdata(){
@@ -62,6 +76,27 @@ export default {
           this.goods[type].list.push(...res.data.data.list);
           this.goods[type].page+=1;
         });
+      },
+      listenerScroll(){
+        window.addEventListener('scroll',function () {
+          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+          let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+          // console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
+          // console.log("scrollHeight"+scrollHeight);
+          if(scrollTop + clientHeight-scrollHeight>0) {
+            
+          }
+        });
+      },
+      tabClick(index){
+        if(index==0){
+          this.currentGoodsIndex='pop';
+        }else if(index==1){
+          this.currentGoodsIndex='new';
+        }else {
+          this.currentGoodsIndex='sell';
+        }
       }
     }
 }
@@ -70,8 +105,11 @@ export default {
 <style scoped>
 #home {
   padding-top: 44px;
+  padding-bottom: 39px;
 }
 .homenavbar {
+  max-width: 640px;
+  min-width: 320px;
   position: fixed;
   top: 0;
   left: 0;
