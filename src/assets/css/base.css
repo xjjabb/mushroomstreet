@@ -29,6 +29,8 @@ li {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
 }
 
 body {
@@ -41,7 +43,6 @@ body {
   max-width: 640px;
   min-width: 320px;
   margin: 0 auto;
-  height: 2000px;
 }
 
 a {
