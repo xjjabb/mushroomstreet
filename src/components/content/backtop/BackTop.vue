@@ -9,7 +9,6 @@ export default {
     name: 'BackTop',
     methods: {
       backtopClick(){
-        console.log(1);
         var timer = null;
         this.scrollTop(timer);
       },
@@ -18,7 +17,7 @@ export default {
         timer = requestAnimationFrame(function sTop(){
           var top = document.body.scrollTop || document.documentElement.scrollTop;
         	if(top > 0){
-        		document.body.scrollTop = document.documentElement.scrollTop = top - 50;
+        		document.body.scrollTop = document.documentElement.scrollTop = top - 80;
         		timer = requestAnimationFrame(sTop);
         	}else{
         		cancelAnimationFrame(timer);

@@ -6,7 +6,7 @@
     <HomeFeature></HomeFeature>
     <HomeTabControl @tabClick="tabClick"></HomeTabControl>
     <Goods :goods="showGoods"></Goods>
-    <BackTop v-show="showBackTop"></BackTop>
+    <BackTop v-show="isShowBackTop"></BackTop>
   </div>
 </template>
 
@@ -33,7 +33,8 @@ export default {
           'new': {page:0,list:[]},
           'sell': {page:0,list:[]}
         },//商品
-        currentGoodsIndex: 'pop'
+        currentGoodsIndex: 'pop',
+        isShowBackTop: false
       }
     },
     components: {
@@ -48,9 +49,6 @@ export default {
     computed: {
       showGoods(){
         return this.goods[this.currentGoodsIndex].list;
-      },
-      showBackTop(){
-        return true;
       }
     },
     created(){
@@ -78,12 +76,17 @@ export default {
         });
       },
       listenerScroll(){
-        window.addEventListener('scroll',function () {
+        window.addEventListener('scroll',()=>{
           let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
           let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-          // console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
+          console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
           // console.log("scrollHeight"+scrollHeight);
+          if(scrollTop + clientHeight>1250){
+            this.isShowBackTop=true;
+          }else {
+            this.isShowBackTop=false;
+          }
           if(scrollTop + clientHeight-scrollHeight>0) {
             
           }
