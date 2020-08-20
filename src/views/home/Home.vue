@@ -34,7 +34,7 @@ export default {
           'sell': {page:0,list:[]}
         },//商品
         currentGoodsIndex: 'pop',
-        isShowBackTop: false
+        isShowBackTop: false,//显示隐藏返回顶部按钮
       }
     },
     components: {
@@ -80,15 +80,15 @@ export default {
           let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
           let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-          console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
+          // console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
           // console.log("scrollHeight"+scrollHeight);
           if(scrollTop + clientHeight>1250){
             this.isShowBackTop=true;
           }else {
             this.isShowBackTop=false;
           }
-          if(scrollTop + clientHeight-scrollHeight>0) {
-            
+          if(scrollTop + clientHeight-scrollHeight>-1) {
+            this.getHomeGoods(this.currentGoodsIndex);
           }
         });
       },
