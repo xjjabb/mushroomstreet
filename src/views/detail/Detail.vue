@@ -6,6 +6,7 @@
     <DetailShop :shop="shop"></DetailShop>
     <DetailImg :detailImgInfo="detailImgInfo"></DetailImg>
     <DetailGoodsParam :goodsParams="goodsParams"></DetailGoodsParam>
+    <DetailDiscuss :discuss="discuss"></DetailDiscuss>
     <ul>
       <li>1</li>
       <li>1</li>
@@ -39,6 +40,7 @@ import DetailGoods from './children/DetailGoods.vue';
 import DetailShop from './children/DetailShop.vue';
 import DetailImg from './children/DetailImg.vue';
 import DetailGoodsParam from './children/DetailGoodsParam.vue';
+import DetailDiscuss from './children/DetailDiscuss.vue';
 //请求
 import {getDetail,Goods,Shop,GoodsParam} from 'network/detail.js';
 export default {
@@ -51,6 +53,7 @@ export default {
         shop: {},//店铺信息
         detailImgInfo: {},//商品详情图片
         goodsParams:{},//商品参数信息
+        discuss: {},//商品评论
       }
     },
     components: {
@@ -60,6 +63,7 @@ export default {
       DetailShop,//店铺信息
       DetailImg,//商品详情图片
       DetailGoodsParam,//商品参数信息
+      DetailDiscuss,//商品评论信息
     },
     created(){
       //保存iid
@@ -78,7 +82,11 @@ export default {
         this.detailImgInfo=res.data.result.detailInfo;
         //商品参数信息
         this.goodsParams=new GoodsParam(res.data.result.itemParams.info,res.data.result.itemParams.rule);
-      })
+        //商品评论
+        if(res.data.result.rate.cRate!=0){
+          this.discuss=res.data.result.rate;
+        }
+      });
     }
 }
 </script>

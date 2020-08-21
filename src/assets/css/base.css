@@ -54,7 +54,7 @@ img {
   vertical-align: middle;
 }
 
-.clear-fix::after {
+.clearfix::after {
   clear: both;
   content: '';
   display: block;
@@ -63,7 +63,7 @@ img {
   visibility: hidden;
 }
 
-.clear-fix {
+.clearfix {
   zoom: 1;
 }
 
