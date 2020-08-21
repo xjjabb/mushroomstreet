@@ -43,7 +43,7 @@ export class Shop{
     }
 }
 
-
+//商品规格
 export class GoodsParam {
     constructor(info,rule){
         this.image=info.images?info.images[0]:'';

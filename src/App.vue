@@ -8,7 +8,9 @@
 </template>
 
 <script>
+//公共组件
 import TabBar from 'components/content/tabbar/TabBar.vue';
+// import Detail from 'views/detail/Detail.vue';
 export default {
   name: 'App',
   components: {

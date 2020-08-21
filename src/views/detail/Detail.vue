@@ -5,6 +5,7 @@
     <DetailGoods :goods="goods"></DetailGoods>
     <DetailShop :shop="shop"></DetailShop>
     <DetailImg :detailImgInfo="detailImgInfo"></DetailImg>
+    <DetailGoodsParam :goodsParams="goodsParams"></DetailGoodsParam>
     <ul>
       <li>1</li>
       <li>1</li>
@@ -37,8 +38,9 @@ import DetailSwiper from './children/DetailSwiper.vue';
 import DetailGoods from './children/DetailGoods.vue';
 import DetailShop from './children/DetailShop.vue';
 import DetailImg from './children/DetailImg.vue';
+import DetailGoodsParam from './children/DetailGoodsParam.vue';
 //请求
-import {getDetail,Goods,Shop} from 'network/detail.js';
+import {getDetail,Goods,Shop,GoodsParam} from 'network/detail.js';
 export default {
     name: 'Detail',
     data(){
@@ -48,6 +50,7 @@ export default {
         goods: {},//商品基本信息
         shop: {},//店铺信息
         detailImgInfo: {},//商品详情图片
+        goodsParams:{},//商品参数信息
       }
     },
     components: {
@@ -56,6 +59,7 @@ export default {
       DetailGoods,//商品基本信息
       DetailShop,//店铺信息
       DetailImg,//商品详情图片
+      DetailGoodsParam,//商品参数信息
     },
     created(){
       //保存iid
@@ -72,6 +76,8 @@ export default {
         this.shop=new Shop(res.data.result.shopInfo);
         //商品详情图片
         this.detailImgInfo=res.data.result.detailInfo;
+        //商品参数信息
+        this.goodsParams=new GoodsParam(res.data.result.itemParams.info,res.data.result.itemParams.rule);
       })
     }
 }
