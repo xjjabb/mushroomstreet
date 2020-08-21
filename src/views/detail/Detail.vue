@@ -4,17 +4,28 @@
     <DetailSwiper :banners="banners"></DetailSwiper>
     <DetailGoods :goods="goods"></DetailGoods>
     <DetailShop :shop="shop"></DetailShop>
+    <DetailImg :detailImgInfo="detailImgInfo"></DetailImg>
     <ul>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
     </ul>
   </div>
 </template>
@@ -25,6 +36,7 @@ import DetailNavBar from './children/DetailNavBar.vue';
 import DetailSwiper from './children/DetailSwiper.vue';
 import DetailGoods from './children/DetailGoods.vue';
 import DetailShop from './children/DetailShop.vue';
+import DetailImg from './children/DetailImg.vue';
 //请求
 import {getDetail,Goods,Shop} from 'network/detail.js';
 export default {
@@ -35,7 +47,7 @@ export default {
         banners: [],//详情页轮播图
         goods: {},//商品基本信息
         shop: {},//店铺信息
-        detailInfo: {},//商品详情图片
+        detailImgInfo: {},//商品详情图片
       }
     },
     components: {
@@ -43,6 +55,7 @@ export default {
       DetailSwiper,//详情页轮播图
       DetailGoods,//商品基本信息
       DetailShop,//店铺信息
+      DetailImg,//商品详情图片
     },
     created(){
       //保存iid
@@ -58,7 +71,7 @@ export default {
         //店铺信息
         this.shop=new Shop(res.data.result.shopInfo);
         //商品详情图片
-        this.detailInfo=res.data.result.detailInfo;
+        this.detailImgInfo=res.data.result.detailInfo;
       })
     }
 }

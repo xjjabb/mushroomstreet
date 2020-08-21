@@ -61,6 +61,7 @@ const router=new VueRouter({
     routes,
     mode: 'history'
 })
+
 router.beforeEach((to, from, next) => {
     document.title=to.meta.name;
     next();
