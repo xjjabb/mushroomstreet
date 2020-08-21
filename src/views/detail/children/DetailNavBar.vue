@@ -1,5 +1,5 @@
 <template>
-  <NavBar>
+  <NavBar class="navbar">
       <div slot="left">
           <img src="~assets/img/common/back.svg" @click="backClick">
       </div>
@@ -50,5 +50,15 @@ export default {
     }
     .active {
         color: #ff8198;
+    }
+    .navbar {
+        max-width: 640px;
+        min-width: 320px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background-color: #fff;
     }
 </style>

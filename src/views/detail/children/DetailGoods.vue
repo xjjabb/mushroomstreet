@@ -62,7 +62,7 @@ export default {
     .other {
         margin-top: 15px;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         color: #999;
         font-size: 14px;
         border-bottom: 1px solid rgba(100,100,100,.1);
