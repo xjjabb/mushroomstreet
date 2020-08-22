@@ -1,7 +1,12 @@
 <template>
-    <ul class="goods">
+    <ul class="goods" v-if="Object.keys(goods).length!=0">
        <li v-for="(item,index) in goods" :key="index" class="goodsItem" @click="itemClick(item.iid)">
-           <img :src="item.show.img" alt="">
+           <div v-if="item.show">
+               <img :src="item.show.img">
+           </div>
+           <div v-else>
+               <img :src="item.image">
+           </div>
            <div class="goods_info">
                 <p>{{item.title}}</p>
                 <span class="price">￥{{item.price}}</span>
@@ -41,6 +46,8 @@ export default {
         width: 100%;
         box-sizing: content-box;
         font-size: 14px;
+
+        box-sizing: border-box;
     }
     .goodsItem {
         width: 46%;

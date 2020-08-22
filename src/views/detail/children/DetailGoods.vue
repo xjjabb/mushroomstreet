@@ -35,8 +35,9 @@ export default {
 
 <style scoped>
     .goods {
-        width: 100%;
-        margin-top: 15px;
+        padding: 15px 10px 0;
+        box-sizing: border-box;
+        border-bottom: 4px solid #eee;
     }
     .title {
         font-size: 16px;
@@ -71,7 +72,6 @@ export default {
         padding: 15px 0;
         display: flex;
         flex-wrap: wrap;
-        border-bottom: 4px solid #eee;
     }
     .service span {
         flex: 46%;

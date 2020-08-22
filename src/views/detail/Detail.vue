@@ -7,28 +7,7 @@
     <DetailImg :detailImgInfo="detailImgInfo"></DetailImg>
     <DetailGoodsParam :goodsParams="goodsParams"></DetailGoodsParam>
     <DetailDiscuss :discuss="discuss"></DetailDiscuss>
-    <ul>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-    </ul>
+    <DetailRecommends :goods="recommends"></DetailRecommends>
   </div>
 </template>
 
@@ -41,8 +20,9 @@ import DetailShop from './children/DetailShop.vue';
 import DetailImg from './children/DetailImg.vue';
 import DetailGoodsParam from './children/DetailGoodsParam.vue';
 import DetailDiscuss from './children/DetailDiscuss.vue';
+import DetailRecommends from './children/DetailRecommends.vue';
 //请求
-import {getDetail,Goods,Shop,GoodsParam} from 'network/detail.js';
+import {getDetail,getRecommend,Goods,Shop,GoodsParam} from 'network/detail.js';
 export default {
     name: 'Detail',
     data(){
@@ -54,6 +34,7 @@ export default {
         detailImgInfo: {},//商品详情图片
         goodsParams:{},//商品参数信息
         discuss: {},//商品评论
+        recommends: [],//推荐商品
       }
     },
     components: {
@@ -64,29 +45,42 @@ export default {
       DetailImg,//商品详情图片
       DetailGoodsParam,//商品参数信息
       DetailDiscuss,//商品评论信息
+      DetailRecommends,//商品推荐
     },
     created(){
       //保存iid
       this.iid=this.$route.params.iid;
-
-      //请求数据
-      getDetail(this.iid).then(res=>{
-        console.log(res);
-        //轮播图
-        this.banners=res.data.result.itemInfo.topImages;
-        //商品基本信息
-        this.goods=new Goods(res.data.result.itemInfo,res.data.result.columns,res.data.result.shopInfo.services);
-        //店铺信息
-        this.shop=new Shop(res.data.result.shopInfo);
-        //商品详情图片
-        this.detailImgInfo=res.data.result.detailInfo;
-        //商品参数信息
-        this.goodsParams=new GoodsParam(res.data.result.itemParams.info,res.data.result.itemParams.rule);
-        //商品评论
-        if(res.data.result.rate.cRate!=0){
-          this.discuss=res.data.result.rate;
-        }
-      });
+      //请求商品详情数据
+      this.getDetail(this.iid);
+      //请求推荐数据
+      this.getRecommend();
+    },
+    methods: {
+      getDetail(iid){
+        getDetail(iid).then(res=>{
+          // console.log(res);
+          //轮播图
+          this.banners=res.data.result.itemInfo.topImages;
+          //商品基本信息
+          this.goods=new Goods(res.data.result.itemInfo,res.data.result.columns,res.data.result.shopInfo.services);
+          //店铺信息
+          this.shop=new Shop(res.data.result.shopInfo);
+          //商品详情图片
+          this.detailImgInfo=res.data.result.detailInfo;
+          //商品参数信息
+          this.goodsParams=new GoodsParam(res.data.result.itemParams.info,res.data.result.itemParams.rule);
+          //商品评论
+          if(res.data.result.rate.cRate!=0){
+            this.discuss=res.data.result.rate;
+          }
+        });
+      },
+      getRecommend(){
+        getRecommend().then(res=>{
+          // console.log(res);
+          this.recommends=res.data.data.list;
+        })
+      }
     }
 }
 </script>
