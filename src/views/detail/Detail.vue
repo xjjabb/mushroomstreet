@@ -116,7 +116,7 @@ export default {
         //scrollTop就是触发滚轮事件时滚轮的高度
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         scrollTop=scrollTop+44;
-        console.log(scrollTop);
+        // console.log(scrollTop);
         if(this.$refs.DetailNavBar){
           if(scrollTop<this.themeTopY[1]-44){
               this.$refs.DetailNavBar._data.currentIndex=0;
