@@ -1,14 +1,15 @@
 <template>
   <div id="detail">
-    <DetailNavBar></DetailNavBar>
+    <DetailNavBar ref="DetailNavBar"></DetailNavBar>
     <DetailSwiper :banners="banners"></DetailSwiper>
     <DetailGoods :goods="goods"></DetailGoods>
     <DetailShop :shop="shop"></DetailShop>
     <DetailImg :detailImgInfo="detailImgInfo"></DetailImg>
-    <DetailGoodsParam :goodsParams="goodsParams"></DetailGoodsParam>
-    <DetailDiscuss :discuss="discuss"></DetailDiscuss>
-    <DetailRecommends :goods="recommends"></DetailRecommends>
+    <DetailGoodsParam ref="DetailGoodsParam" :goodsParams="goodsParams"></DetailGoodsParam>
+    <DetailDiscuss ref="DetailDiscuss" :discuss="discuss"></DetailDiscuss>
+    <DetailRecommends ref="DetailRecommends" :goods="recommends"></DetailRecommends>
     <BackTop></BackTop>
+    <DetailBottomBar></DetailBottomBar>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import DetailImg from './children/DetailImg.vue';
 import DetailGoodsParam from './children/DetailGoodsParam.vue';
 import DetailDiscuss from './children/DetailDiscuss.vue';
 import DetailRecommends from './children/DetailRecommends.vue';
+import DetailBottomBar from './children/DetailBottomBar.vue';
 //请求
 import {getDetail,getRecommend,Goods,Shop,GoodsParam} from 'network/detail.js';
 export default {
@@ -38,6 +40,7 @@ export default {
         goodsParams:{},//商品参数信息
         discuss: {},//商品评论
         recommends: [],//推荐商品
+        themeTopY: [],//主题的Y值
       }
     },
     components: {
@@ -50,6 +53,7 @@ export default {
       DetailDiscuss,//商品评论信息
       DetailRecommends,//商品推荐
       BackTop,//返回顶部
+      DetailBottomBar,//底部工具栏
     },
     created(){
       //保存iid
@@ -58,9 +62,23 @@ export default {
       this.getDetail(this.iid);
       //请求推荐数据
       this.getRecommend();
+      //点击跳到指定位置
+      this.$bus.$on('clickTop',(index)=>{
+        this.clickTop(index);
+      });
     },
-    destroyed(){
-      console.log(123);
+    updated(){
+      this.themeTopY.length=0;
+      this.themeTopY.push(0);
+      this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
+      this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
+      this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
+      console.log(this.themeTopY);
+      //监听页面滚动
+      window.addEventListener('scroll',this.windowStyle);
+    },
+    beforeDestroy(){
+      window.removeEventListener('scroll',this.windowStyle);
     },
     methods: {
       getDetail(iid){
@@ -87,6 +105,27 @@ export default {
           // console.log(res);
           this.recommends=res.data.data.list;
         })
+      },
+      clickTop(index){
+        document.documentElement.scrollTop=this.themeTopY[index]-44;
+      },
+      windowStyle(){
+        //为了保证兼容性，这里取两个值，哪个有值取哪一个
+        //scrollTop就是触发滚轮事件时滚轮的高度
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        scrollTop=scrollTop+44;
+        console.log(scrollTop);
+        if(this.$refs.DetailNavBar){
+          if(scrollTop<this.themeTopY[1]-44){
+              this.$refs.DetailNavBar._data.currentIndex=0;
+            }else if(scrollTop<this.themeTopY[2]-44){
+              this.$refs.DetailNavBar._data.currentIndex=1;
+            }else if(scrollTop<this.themeTopY[3]-44){
+              this.$refs.DetailNavBar._data.currentIndex=2;
+            }else {
+              this.$refs.DetailNavBar._data.currentIndex=3;
+          }
+        }
       }
     }
 }
@@ -95,6 +134,7 @@ export default {
 <style scoped>
   #detail {
     padding-top: 44px;
+    padding-bottom: 49px;
     position: relative;
     background-color: #fff;
     z-index: 1000;

@@ -28,6 +28,7 @@ export default {
     },
     methods: {
         btnClick(index){
+            this.$bus.$emit('clickTop',index);
             this.currentIndex=index;
         },
         backClick(){

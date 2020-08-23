@@ -55,6 +55,7 @@ export default {
       console.log("活");
     },
     deactivated(){
+      window.removeEventListener('scroll',this.winder);
       console.log("死");
     },
     created(){
@@ -92,14 +93,16 @@ export default {
         });
       },
       listenerScroll(){
-        window.addEventListener('scroll',()=>{
-          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-          let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-          let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-          if(scrollTop + clientHeight-scrollHeight>-1) {
-            this.getHomeGoods(this.currentGoodsIndex);
-          }
-        });
+        window.addEventListener('scroll',this.winder);
+      },
+      winder(){
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        console.log(scrollTop);
+        if(scrollTop + clientHeight-scrollHeight>-1) {
+          this.getHomeGoods(this.currentGoodsIndex);
+        }
       }
     }
 }
