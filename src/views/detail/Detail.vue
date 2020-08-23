@@ -66,14 +66,16 @@ export default {
       this.$bus.$on('clickTop',(index)=>{
         this.clickTop(index);
       });
+      this.$bus.$on('imgLoad',()=>{
+        this.themeTopY.length=0;
+        this.themeTopY.push(0);
+        this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
+        this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
+        this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
+        console.log(this.themeTopY);
+      })
     },
     updated(){
-      this.themeTopY.length=0;
-      this.themeTopY.push(0);
-      this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
-      this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
-      this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
-      console.log(this.themeTopY);
       //监听页面滚动
       window.addEventListener('scroll',this.windowStyle);
     },

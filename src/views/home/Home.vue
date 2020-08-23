@@ -52,9 +52,15 @@ export default {
       }
     },
     activated(){
+      //检测滚动条是否到底部 下拉加载更多
+      this.listenerScroll();
+      //回到离开时的位置
+      document.documentElement.scrollTop=this.saveY;
       console.log("活");
     },
     deactivated(){
+      // 记录离开时的位置
+      //不知道怎么办 在滚动事件中记录了
       window.removeEventListener('scroll',this.winder);
       console.log("死");
     },
@@ -65,8 +71,6 @@ export default {
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('sell');
-      //检测滚动条是否到底部 下拉加载更多
-      this.listenerScroll();
       //用bus监听
       this.$bus.$on('tabClick',(index)=>{
         if(index==0){
@@ -99,7 +103,9 @@ export default {
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
         let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        //记录离开时的位置
         console.log(scrollTop);
+        this.saveY=scrollTop;
         if(scrollTop + clientHeight-scrollHeight>-1) {
           this.getHomeGoods(this.currentGoodsIndex);
         }
