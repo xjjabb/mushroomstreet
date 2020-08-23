@@ -8,10 +8,13 @@
     <DetailGoodsParam :goodsParams="goodsParams"></DetailGoodsParam>
     <DetailDiscuss :discuss="discuss"></DetailDiscuss>
     <DetailRecommends :goods="recommends"></DetailRecommends>
+    <BackTop></BackTop>
   </div>
 </template>
 
 <script>
+//公共组件
+import BackTop from "components/content/backtop/BackTop.vue";
 //详情页子组件
 import DetailNavBar from './children/DetailNavBar.vue';
 import DetailSwiper from './children/DetailSwiper.vue';
@@ -46,6 +49,7 @@ export default {
       DetailGoodsParam,//商品参数信息
       DetailDiscuss,//商品评论信息
       DetailRecommends,//商品推荐
+      BackTop,//返回顶部
     },
     created(){
       //保存iid
@@ -54,6 +58,9 @@ export default {
       this.getDetail(this.iid);
       //请求推荐数据
       this.getRecommend();
+    },
+    destroyed(){
+      console.log(123);
     },
     methods: {
       getDetail(iid){

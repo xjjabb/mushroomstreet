@@ -6,7 +6,7 @@
     <HomeFeature></HomeFeature>
     <HomeTabControl ></HomeTabControl>
     <Goods :goods="showGoods"></Goods>
-    <BackTop v-show="isShowBackTop"></BackTop>
+    <BackTop></BackTop>
   </div>
 </template>
 
@@ -34,7 +34,6 @@ export default {
           'sell': {page:0,list:[]}
         },//商品
         currentGoodsIndex: 'pop',
-        isShowBackTop: false,//显示隐藏返回顶部按钮
         saveY: 0,//重回home的位置
       }
     },
@@ -65,7 +64,7 @@ export default {
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('sell');
-      //检测滚动条是否到底部
+      //检测滚动条是否到底部 下拉加载更多
       this.listenerScroll();
       //用bus监听
       this.$bus.$on('tabClick',(index)=>{
@@ -97,13 +96,6 @@ export default {
           let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
           let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-          // console.log("scrollTop + clientHeight"+(scrollTop + clientHeight));
-          // console.log("scrollHeight"+scrollHeight);
-          if(scrollTop + clientHeight>2500){
-            this.isShowBackTop=true;
-          }else {
-            this.isShowBackTop=false;
-          }
           if(scrollTop + clientHeight-scrollHeight>-1) {
             this.getHomeGoods(this.currentGoodsIndex);
           }
