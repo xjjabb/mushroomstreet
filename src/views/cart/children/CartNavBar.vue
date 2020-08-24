@@ -6,10 +6,14 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar.vue';
+import {mapGetters} from 'vuex';
 export default {
     name: 'CartNavBar',
     components: {
         NavBar
+    },
+    computed: {
+        ...mapGetters(['cartListLength'])
     }
 }
 </script>
