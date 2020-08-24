@@ -13,7 +13,7 @@ export default {
     name: 'DetailBottomBar',
     methods: {
         addCart(){
-            console.log('1');
+            this.$emit('addCart');
         },
         buyClick(){
             alert('该功能为实现');

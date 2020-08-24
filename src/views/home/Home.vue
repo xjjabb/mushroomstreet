@@ -56,13 +56,11 @@ export default {
       this.listenerScroll();
       //回到离开时的位置
       document.documentElement.scrollTop=this.saveY;
-      console.log("活");
     },
     deactivated(){
       // 记录离开时的位置
       //不知道怎么办 在滚动事件中记录了
-      window.removeEventListener('scroll',this.winder);
-      console.log("死");
+      window.removeEventListener('scroll',this.windowHome);
     },
     created(){
       //请求轮播图和首页导航
@@ -97,14 +95,14 @@ export default {
         });
       },
       listenerScroll(){
-        window.addEventListener('scroll',this.winder);
+        window.addEventListener('scroll',this.windowHome);
       },
-      winder(){
+      windowHome(){
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
         let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
         //记录离开时的位置
-        console.log(scrollTop);
+        // console.log(scrollTop);
         this.saveY=scrollTop;
         if(scrollTop + clientHeight-scrollHeight>-1) {
           this.getHomeGoods(this.currentGoodsIndex);

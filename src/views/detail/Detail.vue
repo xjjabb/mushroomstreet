@@ -9,7 +9,7 @@
     <DetailDiscuss ref="DetailDiscuss" :discuss="discuss"></DetailDiscuss>
     <DetailRecommends ref="DetailRecommends" :goods="recommends"></DetailRecommends>
     <BackTop></BackTop>
-    <DetailBottomBar></DetailBottomBar>
+    <DetailBottomBar @addCart="addCart"></DetailBottomBar>
   </div>
 </template>
 
@@ -66,21 +66,25 @@ export default {
       this.$bus.$on('clickTop',(index)=>{
         this.clickTop(index);
       });
-      this.$bus.$on('imgLoad',()=>{
-        this.themeTopY.length=0;
-        this.themeTopY.push(0);
-        this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
-        this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
-        this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
-        console.log(this.themeTopY);
-      })
     },
     updated(){
       //监听页面滚动
-      window.addEventListener('scroll',this.windowStyle);
+      window.addEventListener('scroll',this.windowDetail);
     },
     beforeDestroy(){
-      window.removeEventListener('scroll',this.windowStyle);
+      window.removeEventListener('scroll',this.windowDetail);
+    },
+    mounted(){
+      console.log('mounted11111refs',this.$refs); 
+      let refs = this.$refs;
+      this.$bus.$on('imgLoad',()=>{
+          this.themeTopY.length=0;
+          this.themeTopY.push(0);
+          this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
+          this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
+          this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
+          console.log(this.themeTopY);     
+      })
     },
     methods: {
       getDetail(iid){
@@ -111,7 +115,7 @@ export default {
       clickTop(index){
         document.documentElement.scrollTop=this.themeTopY[index]-44;
       },
-      windowStyle(){
+      windowDetail(){
         //为了保证兼容性，这里取两个值，哪个有值取哪一个
         //scrollTop就是触发滚轮事件时滚轮的高度
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -128,6 +132,17 @@ export default {
               this.$refs.DetailNavBar._data.currentIndex=3;
           }
         }
+      },
+      //加入购物车
+      addCart(){
+        //获取购物车展示的信息
+        const product={};
+        product.image=this.banners[0];
+        product.title=this.goods.title;
+        product.desc=this.goods.desc;
+        product.price=this.goods.realPrice;
+        product.iid=this.iid;
+        this.$store.dispatch('addCart',product);
       }
     }
 }

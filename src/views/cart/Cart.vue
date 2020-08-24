@@ -1,13 +1,26 @@
 <template>
-  <div>购物车</div>
+  <div id="cart">
+    <CartNavBar></CartNavBar>
+    <CartList></CartList>
+  </div>
 </template>
 
 <script>
+import CartNavBar from './children/CartNavBar.vue';
+import CartList from './children/CartList.vue';
 export default {
-    name: 'Cart'
+    name: 'Cart',
+    components: {
+      CartNavBar,
+      CartList
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
+  #cart {
+    max-width: 640px;
+    min-width: 320px;
+    padding-top: 44px;
+  }
 </style>
