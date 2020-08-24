@@ -27,5 +27,6 @@ export default {
     min-width: 320px;
     padding-top: 44px;
     widows: 100%;
+    padding-bottom: 90px;
   }
 </style>

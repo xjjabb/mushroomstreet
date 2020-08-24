@@ -57,6 +57,7 @@ export default {
         height: 40px;
         border-top: 1px solid #ccc;
         line-height: 40px;
+        background-color: #fff;
     }
     span {
         flex: 1;
