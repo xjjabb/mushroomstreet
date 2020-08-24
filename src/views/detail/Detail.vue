@@ -72,21 +72,22 @@ export default {
       window.addEventListener('scroll',this.windowDetail);
     },
     beforeDestroy(){
+      //解绑监听的事件
+      this.$bus.$off('imgLoad',this.getY); 
       window.removeEventListener('scroll',this.windowDetail);
     },
     mounted(){
-      console.log('mounted11111refs',this.$refs); 
       let refs = this.$refs;
-      this.$bus.$on('imgLoad',()=>{
-          this.themeTopY.length=0;
-          this.themeTopY.push(0);
-          this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
-          this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
-          this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
-          console.log(this.themeTopY);     
-      })
+      this.$bus.$on('imgLoad',this.getY);
     },
     methods: {
+      getY(){
+        this.themeTopY.length=0;
+        this.themeTopY.push(0);
+        this.themeTopY.push(this.$refs.DetailGoodsParam.$el.offsetTop);
+        this.themeTopY.push(this.$refs.DetailDiscuss.$el.offsetTop);
+        this.themeTopY.push(this.$refs.DetailRecommends.$el.offsetTop);
+      },
       getDetail(iid){
         getDetail(iid).then(res=>{
           // console.log(res);
