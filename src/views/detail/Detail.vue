@@ -54,6 +54,7 @@ export default {
       DetailRecommends,//商品推荐
       BackTop,//返回顶部
       DetailBottomBar,//底部工具栏
+      Toast,//吐司
     },
     created(){
       //保存iid
@@ -72,7 +73,7 @@ export default {
       window.addEventListener('scroll',this.windowDetail);
     },
     beforeDestroy(){
-      //解绑监听的事件
+      //解绑图片加载监听的事件
       this.$bus.$off('imgLoad',this.getY); 
       window.removeEventListener('scroll',this.windowDetail);
     },
@@ -143,7 +144,9 @@ export default {
         product.desc=this.goods.desc;
         product.price=this.goods.realPrice;
         product.iid=this.iid;
-        this.$store.dispatch('addCart',product);
+        this.$store.dispatch('addCart',product).then(res=>{
+          this.$toast.show(res,2000);
+        });
       }
     }
 }

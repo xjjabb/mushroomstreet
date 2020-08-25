@@ -2,7 +2,7 @@
     <ul class="goods" v-if="Object.keys(goods).length!=0">
        <li v-for="(item,index) in goods" :key="index" class="goodsItem" @click="itemClick(item.iid)">
            <div v-if="item.show">
-               <img :src="item.show.img">
+               <img v-lazy="item.show.img">
            </div>
            <div v-else>
                <img :src="item.image">
