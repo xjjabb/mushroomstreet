@@ -54,7 +54,6 @@ export default {
       DetailRecommends,//商品推荐
       BackTop,//返回顶部
       DetailBottomBar,//底部工具栏
-      Toast,//吐司
     },
     created(){
       //保存iid
